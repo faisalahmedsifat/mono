@@ -1,0 +1,17 @@
+services:
+  api-go:
+    dir: apps/api-go
+    command: go run main.go
+    watch:
+      - "**/*.go"
+      - "go.mod"
+      - "go.sum"
+    env:
+      PORT: "8081"
+
+  web:
+    dir: apps/web
+    command: pnpm dev
+    watch:
+      - "**/*.{ts,tsx,js,jsx,json}"
+    port: 3000

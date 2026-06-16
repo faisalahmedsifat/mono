@@ -33,7 +33,6 @@ func main() {
 
 	if err := app.Run(context.Background(), os.Args); err != nil {
 		log.Fatal(err)
-		os.Exit(1)
 	}
 
 }
@@ -42,15 +41,14 @@ func run(ctx context.Context, c *cli.Command) error {
 	cfgPath := c.String("config")
 	onlyTasks := c.StringSlice("only")
 
-	fmt.Printf("Loading configuration from %s", cfgPath)
+	fmt.Printf("Loading configuration from %s\n", cfgPath)
 	cfg, err := config.Load(cfgPath)
 	if err != nil {
 		return fmt.Errorf("failed to load configuration: %v", err)
 	}
 
 	if len(onlyTasks) > 0 {
-		fmt.Printf("Running only tasks: %v", onlyTasks)
-		// Filter cfg.Services based on onlyTasks
+		fmt.Printf("Running only tasks: %v\n", onlyTasks)
 		cfg = config.FilterServices(cfg, onlyTasks)
 	}
 	r := runner.NewRunner(cfg)
